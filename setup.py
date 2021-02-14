@@ -20,19 +20,11 @@
 
 import re
 from os.path import dirname, join
-from os import path
-import pathlib
 
 from setuptools import setup, find_packages
 
 # Extract requirements from requirements.txt
-HERE = pathlib.Path(__file__).parent
-
-with open(path.join(HERE, 'requirements.txt'), encoding='utf-8') as f:
-    all_reqs = f.read().split('\n')
-
-install_requires = [x.strip() for x in all_reqs if ('git+' not in x) and (
-    not x.startswith('#')) and (not x.startswith('-'))]
+REQUIREMENTS = [r.rstrip() for r in open("requirements.txt").readlines()]
 
 
 with open(join(dirname(__file__), 'duckiter', '__init__.py')) as v_file:
@@ -53,7 +45,7 @@ setup(
     include_package_data=True,
     long_description=long_description,
     long_description_content_type ="text/markdown", 
-    install_requires=install_requires,
+    install_requires=REQUIREMENTS,
     packages = find_packages(), 
     entry_points ={ 
         'console_scripts': [ 
