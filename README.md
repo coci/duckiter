@@ -11,7 +11,7 @@ Duckiter will Automatically dockerize your Django projects.
     - python version : python version 3.6 or upper version
     - OS : linux, MacOS, windows
     - docker engine installed in your machine and already run through the usage of package
-    
+
 
 ### Installation :
 clone project:
@@ -44,6 +44,6 @@ this will look for config.cfg in project directory and then build the image.
 
 
 
-### Contributaion :
+### Contribution :
 
 feel free to contribute to this project, but first contact me about the idea :)
