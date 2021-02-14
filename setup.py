@@ -24,7 +24,7 @@ from os.path import dirname, join
 from setuptools import setup, find_packages
 
 # Extract requirements from requirements.txt
-REQUIREMENTS = [r.rstrip() for r in open("requirements.txt").readlines()]
+REQUIREMENTS = [r.rstrip() for r in open(join(dirname(__file__), 'requirements.txt')).readlines()]
 
 
 with open(join(dirname(__file__), 'duckiter', '__init__.py')) as v_file:
