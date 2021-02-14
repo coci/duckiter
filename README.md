@@ -6,15 +6,17 @@
 # Duckiter
 Duckiter will Automatically dockerize your Django projects.
 
-compatibility :
+### Requirements :
 
-    - python above version 3.7
-    - ​    - linux, MacOS, windows
+    - python version : python version 3.6 or upper version
+    - OS : linux, MacOS, windows
+    - docker engine installed in your machine and already run through the usage of package
+    
 
 ### Installation :
 clone project:
 ```
-    pip install duckiter
+pip install duckiter
 ```
 
 
@@ -26,17 +28,22 @@ Duckiter has two individual steps:
 #### To initialize Dockerfile (step 1) :
 in terminal hit to your project directory ( where manage.py is in root ):
 ```
-    duckiter --init
+duckiter --init
 ```
 This will create Dockerfile and config.cfg in the root of the project, and you can manipulate those files before Duckiter creates an image.
 If you are ok with our configurations, you can just pass '-build' to immediately build the image right after creating the Dockerfile.
 ```
-    duckiter --init -build
+duckiter --init -build
 ```
 #### To build image (step 2) :
 To build an image from the Dockerfile that has been created in the last step, you need enter:
 ```
-    duckiter main.py -build
+duckiter main.py -build
 ```
 this will look for config.cfg in project directory and then build the image.
 
+
+
+### Contributaion :
+
+feel free to contribute to this project, but first contact me about the idea :)
