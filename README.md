@@ -7,8 +7,9 @@
 Duckiter will Automatically dockerize your Django projects.
 
 compatibility :
+
     - python above version 3.7
-    - linux, MacOS, windows
+    - ​    - linux, MacOS, windows
 
 ### Installation :
 clone project:
