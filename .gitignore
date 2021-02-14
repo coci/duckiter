@@ -40,7 +40,6 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
-nosetests.xml
 coverage.xml
 *,cover
 .hypothesis/
@@ -95,7 +94,7 @@ register_package_pypi_py3.bat
 test.bat
 
 # jet brains
-.idea
+.idea/
 
 # VSCode
 .vscode/
