@@ -4,8 +4,8 @@ from time import sleep
 from threading import Thread
 
 import docker
-from colored import fg, bg, attr
-from progress.spinner import Spinner
+from rich import print
+from rich.console import Console
 
 from duckiter.config import get_config
 from duckiter.validation import pre_validation, docker_engine_status_checker, check_dockerfile
@@ -27,26 +27,24 @@ class Duckiter:
 
 	def initialize(self):
 		pre_validation(project_path=self.__project_path)
-		print("%s[ INITIALIZING ]%s" % (fg(2), attr(0)))
+		print("[bold green][ INITIALIZING ][/bold green]")
 
-		print(" [ 3/6 ] getting project name ......%s[passed] %s" % (fg(2), attr(0)))
+		print("[ 3/6 ] getting project name ......[bold green][ passed ][/bold green]")
 
 		self.__config = get_config()
-		print(" [ 4/6 ] getting configuration ......%s[passed] %s" % (fg(2), attr(0)))
+		print("[ 4/6 ] getting configuration ......[bold green][ passed ][/bold green]")
 
 		create_docker_configuration_file(config=self.__config, project_name=self.__project_name,
 										 project_path=self.__project_path)
-		print(" [ 5/6 ] creating configuration file ......%s[passed] %s" % (fg(2), attr(0)))
+		print("[ 5/6 ] creating configuration file ......[bold green][ passed ][/bold green]")
 
 		create_dockerfile(project_path=self.__project_path)
-		print(" [ 6/6 ] creating Dockerfile ......%s[passed] %s" % (fg(2), attr(0)))
+		print("[ 6/6 ] creating Dockerfile ......[bold green][ passed ][/bold green]")
 		print(
-			"%s%s[ NOTE ]%s if there is gunicorn or daphne in your requirements.txt, Duckiter run your project with them"
-			", else your project will be run with runserver." % (fg(2), bg(15), attr(0)))
+			"[bold green][ NOTE ][/bold green] if there is gunicorn or daphne in your requirements.txt, Duckiter run your project with them"
+			", else your project will be run with runserver.")
 
-		print(
-			"%s%s[ NOTE ]%s if you didn't provide --build, you can edit Dockerfile or config.cfg and then run --build ." % (
-				fg(2), bg(15), attr(0)))
+		print("[bold green][ NOTE ][/bold green] if you didn't provide --build, you can edit Dockerfile or config.cfg and then run --build ." )
 
 	def build(self):
 		self.__project_path = os.getcwd()
@@ -54,7 +52,7 @@ class Duckiter:
 		docker_engine_status_checker()
 		check_dockerfile(project_path=self.__project_path)
 
-		print("%s[ BUILDING IMAGE ]%s" % (fg(2), attr(0)))
+		print("[bold green][ BUILDING IMAGE ][/bold green]")
 		print("it is going to take a while, please be patient...")
 
 		self.__image_name = self.__project_name + "-" + random_string()
@@ -63,15 +61,14 @@ class Duckiter:
 		create_image_thread = Thread(target=self.__build)
 		create_image_thread.start()
 
-		spinner = Spinner('BUILDING .....')
-
-		while self.__state:
-			sleep(0.1)
-			spinner.next()
+		console = Console()
+		with console.status("[bold green]Building image .....",spinner='point') as status:
+			while self.__state:
+				sleep(0.1)
 
 		print("\n")
-		print(" [ 3/3 ] creating image ......%s[passed] %s" % (fg(2), attr(0)))
-		print("%s%s[ NOTE ]%s you can run your image :" % (fg(2), bg(15), attr(0)))
+		print(" [ 3/3 ] creating image ......[bold green][ passed ][/bold green]")
+		print("[bold green][ NOTE ][/bold green] you can run your image :")
 		print(f'docker run -d -p 8000:8000 {self.__image_name}')
 		print("you can hit '127.0.0.1:8000' in your browser.")
 

@@ -1,7 +1,7 @@
 from os import path
 import sys
 
-from colored import fg, bg, attr
+from rich import print
 import docker
 from docker.errors import DockerException
 
@@ -16,19 +16,15 @@ def pre_validation(project_path):
 	if path.isdir(project_path):
 		if path.exists(project_path):
 			if not path.exists(f'{project_path}/manage.py'):
-				print(
-					"%s%s [ WARNING !!! ] %s this is not valid django project, run '--init' inside django project." % (
-						fg(15), bg(1), attr(0)))
+				print("bold red][ WARNNING !!!! ][/bold red] this is not valid django project, run '--init' inside django project.")
 				sys.exit()
-	print(" [ 1/6 ] check project validity ......%s[passed] %s" % (fg(2), attr(0)))
+	print("[ 1/6 ] check project validity ......[bold green][ passed ][/bold green]")
 
 	if not path.exists(f'{project_path}/requirements.txt'):
-		print(
-			"%s%s [ WARNING !!! ] %s There isn't any 'requirements.txt' file in current path, please provide for further steps." % (
-				fg(15), bg(1), attr(0)))
+		print("[bold red][ WARNNING !!!! ][/bold red] There isn't any 'requirements.txt' file in current path, please provide for further steps.")
 		sys.exit()
 
-	print(" [ 2/6 ] check requirements.txt validty ......%s[passed] %s" % (fg(2), attr(0)))
+	print(" [ 2/6 ] check requirements.txt validty ......[bold green][ passed ][/bold green]")
 
 
 def docker_engine_status_checker() -> None:
@@ -37,12 +33,11 @@ def docker_engine_status_checker() -> None:
 	"""
 
 	try:
-		client = docker.from_env()
+		docker.from_env()
 	except DockerException:
-		print("%s%s [ WARNING !!! ] %s It seems your docker engine doesn't run, please run the Docker engine." % (
-			fg(15), bg(1), attr(0)))
+		print("[bold red][ WARNNING !!!! ][/bold red] It seems your docker engine doesn't run, please run the Docker engine.")
 		sys.exit()
-	print(" [ 1/3 ] check docker engine status ......%s[passed]%s" % (fg(2), attr(0)))
+	print(" [ 1/3 ] check docker engine status ......[bold green][ passed ][/bold green]")
 
 
 def check_dockerfile(project_path):
@@ -53,8 +48,6 @@ def check_dockerfile(project_path):
 	if path.isdir(project_path):
 		if path.exists(project_path):
 			if not path.exists(f'{project_path}/Dockerfile'):
-				print(
-					"%s%s [ WARNING !!! ] %s this is not valid django project, run '--init' inside django project." % (
-						fg(15), bg(1), attr(0)))
+				print("[bold red][ WARNNING !!!! ][/bold red] this is not valid django project, run '--init' inside django project.")
 				sys.exit()
-	print(" [ 2/3 ] check project validity ......%s[passed] %s" % (fg(2), attr(0)))
+	print(" [ 2/3 ] check project validity ......[bold green][ passed ][/bold green]")
