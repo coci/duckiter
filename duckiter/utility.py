@@ -1,3 +1,23 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2021- Soroush Safari <mr.safarii1992@gmail.com>
+#
+# This file is part of duckiter.
+#
+# duckiter is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# duckiter is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with grest.  If not, see <http://www.gnu.org/licenses/>.
+#
+
 import configparser
 import os
 import random
@@ -75,13 +95,19 @@ def create_docker_configuration_file(
         project_path=project_path,
         project_name=project_name)
 
-    config = Template(config_cfg_template)
-    config = config.render(
+    project_name = str(project_name)
+    project_server = str(project_server)
+
+    config_file = Template(config_cfg_template)
+    config_file = config_file.render(
         project_name=project_name,
+        python_version=config['python_version'],
+        is_migration=config['is_migration'],
         project_server=project_server,
     )
+
     with open(project_path + '/config.cfg', 'w+') as file:
-        file.write(config)
+        file.write(config_file)
 
 
 def create_dockerfile(project_path) -> None:
@@ -97,10 +123,13 @@ def create_dockerfile(project_path) -> None:
     migrate = 'CMD ["python3","manage.py","migrate"]' if project_info['is_migration'] == 'True' else ""
 
     dockerfile = Template(docker_file_template)
+    python_version = project_info['python_version']
+    python_server = project_server['project_server']
+    
     dockerfile = dockerfile.render(
-        python_version=project_info['python_version'],
+        python_version=python_version,
         migrate=migrate,
-        project_server=project_server['project_server']
+        project_server=python_server,
     )
 
     with open(project_path + '/Dockerfile', 'w+') as file:

@@ -2,7 +2,7 @@ from jinja2 import Template
 
 dockerfile = \
     """
-FROM python:project_info{{ python_version }}-alpine
+FROM python:{{ python_version }}-alpine
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
