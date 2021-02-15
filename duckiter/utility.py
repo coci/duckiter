@@ -2,7 +2,10 @@ import os
 import configparser
 import string
 import random
-
+import docker
+from duckiter.template.docker_file import dockerfile as docker_file_template
+from duckiter.template.config_cfg import config_cfg as config_cfg_template
+from jinja2 import Template
 
 def get_django_project_name(project_path) -> str:
 	"""
@@ -49,10 +52,10 @@ def get_project_server(project_path, project_name) -> str:
 				is_daphne = True
 
 	if is_gunicorn:
-		return f'CMD ["gunicorn", "--bind 0.0.0.0:8000", "{project_name}.wsgi"]'
+		return f'CMD ["gunicorn"  , "-b", "0.0.0.0:8000", "{project_name}.wsgi"]'
 	elif is_daphne:
 
-		return f'CMD ["daphne","-b 0.0.0.0", "-p 8060", "--access-log", "- --proxy-headers", "{project_name}.asgi:application"]'
+		return f'CMD ["daphne","-b", "0.0.0.0", "-p","8000", "--access-log", "-","--proxy-headers", "{project_name}.asgi:application"]'
 	else:
 		return 'CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]'
 
@@ -65,15 +68,12 @@ def create_docker_configuration_file(config, project_name, project_path) -> None
 	:param project_name: name of django project
 	"""
 	project_server = get_project_server(project_path=project_path, project_name=project_name)
-	config = f"""
-[project_info]
-project_name = {project_name}
-python_version= {config['python_version']}
-is_migration= {config['is_migration']}
 
-[project_server]
-project_server = {project_server}
-	"""
+	config = Template(config_cfg_template)
+	config = config.render(
+		project_name=project_name,
+		project_server=project_server,
+	)
 	with open(project_path + '/config.cfg', 'w+') as file:
 		file.write(config)
 
@@ -88,24 +88,15 @@ def create_dockerfile(project_path) -> None:
 
 	project_info = dict(config.items('project_info'))
 	project_server = dict(config.items('project_server'))
-	is_migration = 'CMD ["python3","manage.py","migrate"]' if project_info['is_migration'] == 'True' else "\n"
-	dockerfile = f"""FROM python:{project_info['python_version']}-alpine
+	migrate = 'CMD ["python3","manage.py","migrate"]' if project_info['is_migration'] == 'True' else ""
 	
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+	dockerfile = Template(docker_file_template)
+	dockerfile = dockerfile.render(
+		python_version=project_info['python_version'],
+		migrate=migrate,
+		project_server=project_server['project_server']
+		)
 
-WORKDIR /app
-COPY . /app
-
-# install dependencies
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-
-{is_migration}
-
-{project_server['project_server']}
-"""
 	with open(project_path + '/Dockerfile', 'w+') as file:
 		file.write(dockerfile)
 
