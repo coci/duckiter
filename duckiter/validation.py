@@ -1,9 +1,9 @@
-from os import path
 import sys
+from os import path
 
-from rich import print
 import docker
 from docker.errors import DockerException
+from rich import print
 
 
 def pre_validation(project_path):

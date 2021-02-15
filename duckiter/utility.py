@@ -1,11 +1,14 @@
-import os
 import configparser
-import string
+import os
 import random
+import string
+
 import docker
-from duckiter.template.docker_file import dockerfile as docker_file_template
-from duckiter.template.config_cfg import config_cfg as config_cfg_template
 from jinja2 import Template
+
+from duckiter.template.config_cfg import config_cfg as config_cfg_template
+from duckiter.template.docker_file import dockerfile as docker_file_template
+
 
 def get_django_project_name(project_path) -> str:
 	"""

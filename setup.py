@@ -21,7 +21,7 @@
 import re
 from os.path import dirname, join
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 # Extract requirements from requirements.txt
 REQUIREMENTS = [r.rstrip() for r in open(join(dirname(__file__), 'requirements.txt')).readlines()]

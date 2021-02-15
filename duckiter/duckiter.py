@@ -1,20 +1,19 @@
 import os
 import pathlib
-from time import sleep
 from threading import Thread
+from time import sleep
 
 import docker
 from rich import print
 from rich.console import Console
 
 from duckiter.config import get_config
-from duckiter.validation import pre_validation, docker_engine_status_checker, check_dockerfile
-from duckiter.utility import (
-	get_django_project_name, 
-	create_docker_configuration_file, 
-	create_dockerfile, 
-	random_string, 
-)
+from duckiter.utility import (create_docker_configuration_file,
+                              create_dockerfile, get_django_project_name,
+                              random_string)
+from duckiter.validation import (check_dockerfile,
+                                 docker_engine_status_checker, pre_validation)
+
 
 class Duckiter:
 	def __init__(self):
