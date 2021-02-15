@@ -1,5 +1,5 @@
 config_cfg = \
-"""
+    """
 [project_info]
 project_name = {{ project_name }}
 python_version= {config['python_version']}

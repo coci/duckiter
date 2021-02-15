@@ -24,7 +24,11 @@ from os.path import dirname, join
 from setuptools import find_packages, setup
 
 # Extract requirements from requirements.txt
-REQUIREMENTS = [r.rstrip() for r in open(join(dirname(__file__), 'requirements.txt')).readlines()]
+REQUIREMENTS = [
+    r.rstrip() for r in open(
+        join(
+            dirname(__file__),
+            'requirements.txt')).readlines()]
 
 
 with open(join(dirname(__file__), 'duckiter', '__init__.py')) as v_file:
@@ -44,13 +48,13 @@ setup(
     license="GPLv3",
     include_package_data=True,
     long_description=long_description,
-    long_description_content_type ="text/markdown", 
+    long_description_content_type="text/markdown",
     install_requires=REQUIREMENTS,
-    packages = find_packages(), 
-    entry_points ={ 
-        'console_scripts': [ 
+    packages=find_packages(),
+    entry_points={
+        'console_scripts': [
             'duckiter = duckiter.main:main'
-        ] 
+        ]
     },
     classifiers=[
         "Operating System :: OS Independent",
