@@ -53,7 +53,7 @@ this will look for config.cfg in project directory and then build the image.
 [ WARNNING !!!! ] It seems your docker engine doesn't run, please run the Docker engine.
 ```
 
-you can fix this issue , just enter these commands :
+​		you can fix this issue , just enter these commands :
 
 ```
 $ sudo groupadd docker
