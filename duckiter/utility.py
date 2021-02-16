@@ -32,7 +32,7 @@ from duckiter.template.docker_file import dockerfile as docker_file_template
 
 def get_django_project_name(project_path) -> str:
     """
-            get project name
+    get project name
 
     :param project_path: path of project
     """
@@ -50,8 +50,8 @@ def get_django_project_name(project_path) -> str:
 
 def get_project_server(project_path, project_name) -> str:
     """
-            get project server ( runserver , gunicorn , daphne ,..... )
-            it looks through requirements.txt file
+    get project server ( runserver , gunicorn , daphne ,..... )
+    it looks through requirements.txt file
 
     :param project_path: path of project
     :param project_name: name of django project
@@ -78,7 +78,8 @@ def get_project_server(project_path, project_name) -> str:
 def create_docker_configuration_file(
         config, project_name, project_path) -> None:
     """
-            create config.cfg file that Dockerfile read settings from this
+    create config.cfg file that Dockerfile read settings from this
+
     :param project_path: path of project
     :param config: configuration that user entered
     :param project_name: name of django project
@@ -104,7 +105,7 @@ def create_docker_configuration_file(
 
 def create_dockerfile(project_path) -> None:
     """
-            create dockerfile from config.cfg
+    create dockerfile from config.cfg
     :param project_path: path of project
     """
     config = configparser.RawConfigParser()
@@ -128,9 +129,9 @@ def create_dockerfile(project_path) -> None:
         file.write(dockerfile)
 
 
-def random_string() -> str:
+def generate_random_string() -> str:
     """
-            create random string with 5 character
+    create random string with 5 character
     """
     letter = string.ascii_lowercase
     random_string = ''.join(random.choice(letter) for i in range(5))

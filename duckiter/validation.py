@@ -28,7 +28,8 @@ from rich import print
 
 def pre_validation(project_path):
     """
-            check if project_path is valid path ( contain django project)
+    check if project_path is valid path ( contain django project)
+
     :param project_path: path of project
     """
 
@@ -50,7 +51,7 @@ def pre_validation(project_path):
 
 def docker_engine_status_checker() -> None:
     """
-            check is docker engine already up
+    check is docker engine already up
     """
 
     try:
@@ -63,7 +64,8 @@ def docker_engine_status_checker() -> None:
 
 def check_dockerfile(project_path):
     """
-            check if project path has Dockerfile ( for build process )
+    check if project path has Dockerfile ( for build process )
+    
     :param project_path: path of project
     """
     if path.isdir(project_path):

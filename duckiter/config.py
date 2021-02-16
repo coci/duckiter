@@ -20,7 +20,7 @@
 
 def get_config() -> dict:
     """
-            get config from user ( CLI )
+    get config from user ( CLI )
 
     """
     python_version = input(
