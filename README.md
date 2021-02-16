@@ -45,7 +45,35 @@ duckiter main.py -build
 ```
 this will look for config.cfg in project directory and then build the image.
 
+#### Troubleshooting :
 
+- if you get blow error while your docker engine is already run :
+
+```
+[ WARNNING !!!! ] It seems your docker engine doesn't run, please run the Docker engine.
+```
+
+you can fix this issue , just enter these commands :
+
+```
+$ sudo groupadd docker
+$ sudo usermod -aG docker $USER
+$ newgrp docker
+```
+
+now problem fixed and you can run command again.
+
+
+
+- if you got error like :
+
+  ```
+  duckiter : command not found
+  ```
+
+  you can fix this issue by adding your python package directory into you PATH.
+
+  
 
 ### Contribution :
 
