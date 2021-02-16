@@ -45,7 +45,7 @@ duckiter main.py -build
 ```
 this will look for config.cfg in project directory and then build the image.
 
-#### Troubleshooting :
+## Troubleshooting :
 
 - if you get blow error while your docker engine is already run :
 
