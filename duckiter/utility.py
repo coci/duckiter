@@ -59,7 +59,7 @@ def get_project_server(project_path, project_name) -> str:
     is_gunicorn = False
     is_daphne = False
 
-    with open(f'{project_path}/requirements.txt', 'r') as file:
+    with open(project_path + "/requirements.txt", 'r') as file:
         for line in file:
             if 'gunicorn' in line:
                 is_gunicorn = True
