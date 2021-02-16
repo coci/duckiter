@@ -56,18 +56,10 @@ def get_project_server(project_path, project_name) -> str:
     :param project_path: path of project
     :param project_name: name of django project
     """
-
-    project_dirs = {}
-    for r, d, f in os.walk(project_path):
-        for file in f:
-            project_dirs[file] = os.path.join(r, file)
-
-    req_file_path = str(project_dirs['requirements.txt'])
-
     is_gunicorn = False
     is_daphne = False
 
-    with open(req_file_path, 'r') as file:
+    with open(f'{project_path}/requirements.txt', 'r') as file:
         for line in file:
             if 'gunicorn' in line:
                 is_gunicorn = True
