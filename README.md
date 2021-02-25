@@ -36,14 +36,15 @@ in terminal hit to your project directory ( where manage.py is in root ):
 duckiter --init
 ```
 This will create Dockerfile and config.cfg in the root of the project, and you can manipulate those files before Duckiter creates an image.
-If you are ok with our configurations, you can just pass '-build' to immediately build the image right after creating the Dockerfile.
+If you are ok with our configurations, you can just pass '-b' to immediately build the image right after creating the Dockerfile.
+
 ```
-duckiter --init -build
+duckiter --init -b
 ```
 #### To build image (step 2) :
 To build an image from the Dockerfile that has been created in the last step, you need enter:
 ```
-duckiter main.py -build
+duckiter main.py --build
 ```
 this will look for config.cfg in project directory and then build the image.
 
