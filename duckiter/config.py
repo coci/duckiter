@@ -23,8 +23,9 @@ def get_config() -> dict:
     get config from user ( CLI )
 
     """
+    print("please enter python version that you need insert in your Docker. Exp : ( 3.9-alpine or 3.9 )")
     python_version = input(
-        "please enter python version that you need insert in your Docker ? ( blank will consider as 3.8) : ")
+        "( blank will consider as 3.8-alpine ) : ")
 
     python_version = python_version if python_version else '3.8'
 

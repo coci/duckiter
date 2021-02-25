@@ -30,7 +30,7 @@ from rich.console import Console
 from duckiter.config import get_config
 from duckiter.utility import (create_docker_configuration_file,
                               create_dockerfile, get_django_project_name,
-                              random_string)
+                              generate_random_string)
 from duckiter.validation import (check_dockerfile,
                                  docker_engine_status_checker, pre_validation)
 
@@ -78,7 +78,7 @@ class Duckiter:
         print("[bold green][ BUILDING IMAGE ][/bold green]")
         print("it is going to take a while, please be patient...")
 
-        self.__image_name = self.__project_name + "-" + random_string()
+        self.__image_name = self.__project_name + "-" + generate_random_string()
         self.__state = True
 
         create_image_thread = Thread(target=self.__build)
