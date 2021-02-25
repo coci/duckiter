@@ -25,8 +25,10 @@ pip install duckiter
 
 ### Usage :
 Duckiter has two individual steps:
-    1- initialize Dockerfile
-    2- build image from created Dockerfile
+
+​    1- initialize Dockerfile
+
+​    2- build image from created Dockerfile
 
 #### To initialize Dockerfile (step 1) :
 in terminal hit to your project directory ( where manage.py is in root ):
