@@ -32,7 +32,7 @@ def get_config() -> dict:
     is_migration = input(
         "Do you want add 'python manage.py migrate' in your docker file ? (y/n) : ")
 
-    is_migration = True if is_migration == 'y' else False
+    is_migration = True if (is_migration == 'y' or not is_migration) else False
 
     config = {
         'python_version': python_version,
