@@ -47,9 +47,7 @@ def pre_validation(project_path):
         for r, d, f in os.walk(project_path):
             for file in f:
                 if file.lower() == 'pyvenv.cfg':
-                    path_seprator = '/' if '/' in os.path.join(r, file) else '\\'
-                    venv_path = path_seprator.join(os.path.join(r, file).split(path_seprator)[:-1])
-
+                    path_seprator, venv_path = '/' if '/' in r else '\\', r
         
         if not venv_path:
             print("[bold red][ WARNNING DEBUG !!!! ][/bold red] There isn't any 'requirements.txt' file or virtual environment in current path, please provide for further steps.")
@@ -58,7 +56,7 @@ def pre_validation(project_path):
         print(
             "[bold blue][ ACTION ][/bold blue] requirements.txt file not found,"
             "creating this file automatically through your virutal environment"
-            " ({})".format(path_seprator.join(os.path.join(r, file).split(path_seprator)[-1:]))
+            " ({})".format(venv_path.split(path_seprator)[-1])
         )
 
         MODULES = []
