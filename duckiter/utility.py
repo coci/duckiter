@@ -45,7 +45,7 @@ def get_django_project_name(project_path) -> str:
     # get the path of settings.py file
     project_main_dir = str(project_dirs['settings.py'])
 
-    return project_main_dir.split('/')[-2]
+    return project_main_dir.split('/' if '/' in project_main_dir else '\\')[-2]
 
 
 def get_project_server(project_path, project_name) -> str:
@@ -59,7 +59,7 @@ def get_project_server(project_path, project_name) -> str:
     is_gunicorn = False
     is_daphne = False
 
-    with open(project_path + "/requirements.txt", 'r') as file:
+    with open(os.path.join(project_path, 'requirements.txt'), 'r') as file:
         for line in file:
             if 'gunicorn' in line:
                 is_gunicorn = True
@@ -99,7 +99,7 @@ def create_docker_configuration_file(
         project_server=project_server,
     )
 
-    with open(project_path + '/config.cfg', 'w+') as file:
+    with open(os.path.join(project_path, 'config.cfg'), 'w+') as file:
         file.write(config_file)
 
 
@@ -109,7 +109,7 @@ def create_dockerfile(project_path) -> None:
     :param project_path: path of project
     """
     config = configparser.RawConfigParser()
-    config.read(f'{project_path}/config.cfg')
+    config.read(os.path.join(project_path, 'config.cfg'))
 
     project_info = dict(config.items('project_info'))
     project_server = dict(config.items('project_server'))
@@ -125,7 +125,7 @@ def create_dockerfile(project_path) -> None:
         project_server=python_server,
     )
 
-    with open(project_path + '/Dockerfile', 'w+') as file:
+    with open(os.path.join(project_path, 'Dockerfile'), 'w+') as file:
         file.write(dockerfile)
 
 
